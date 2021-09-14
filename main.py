@@ -23,7 +23,7 @@ def get_date():
             print("You did not enter a valid number, please try again")
             get_date()
             break
-        if datetime.now().year > year >= 0:
+        if datetime.now().year >= year >= 0:
             break
         print("Year of birth cannot be negative or greater than current year, please try again")
         get_date()
@@ -72,12 +72,15 @@ def calculate_age(y, m, d):
     current_date = date(datetime.now().year, datetime.now().month, datetime.now().day)
 
     days = (current_date - birth_date).days
-    years = days // 365
+    years = current_date.year - birth_date.year
+    days -= years*365
     months = days // 30
-    hours = datetime.now().hour + (days * 24)
-    minutes = datetime.now().minute + (hours * 60)
+    days -= months*30
+    hours = datetime.now().hour
+    minutes = datetime.now().minute
     print(" %d year(s),  %d month(s), %d day(s), %d hours, %d minutes" % (years, months, days, hours, minutes))
 
 
 if __name__ == '__main__':
     get_date()
+
